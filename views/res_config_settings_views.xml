@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">
+            res.config.settings.view.form.inherit.sap_connector
+        </field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="15"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app data-string="SAP Hana" string="SAP Management" name="sap_connector">
+                    <block title="SAP Connection Settings" name="sap_connection">
+                        <setting string="Sap Domain"
+                                 help="Enter the SAP Domain"
+                                 id="sap_domain_setting">
+                            <field name="sap_domain"/>
+                        </setting>
+
+                        <setting string="Sap DB"
+                                 help="Enter the SAP DB"
+                                 id="sap_db_setting">
+                            <field name="sap_db"/>
+                        </setting>
+
+                        <setting string="Sap Username"
+                                 help="Enter the SAP Username"
+                                 id="sap_username_setting">
+                            <field name="sap_username"/>
+                        </setting>
+
+                        <setting string="Sap Password"
+                                 help="Enter the SAP Password"
+                                 id="sap_password_setting">
+                            <field name="sap_password"/>
+                        </setting>
+
+                        <setting string="Sap Bypass"
+                                 help="Enable this if you want to disable SAP Integration"
+                                 id="bypass_setting">
+                            <field name="bypass"/>
+                        </setting>
+
+                        <field name="company_id"/>
+
+                    </block>
+
+                    <block title="SAP Series Settings" name="sap_series">
+
+                        <setting string="Invoice Series"
+                                 help="Enter the Invoice Series"
+                                 id="invoice_series_setting">
+                            <field name="invoice_series"/>
+                        </setting>
+
+                        <setting string="Estimates Series"
+                                 help="Enter the Estimates Series"
+                                 id="estimates_series_setting">
+                            <field name="estimates_series"/>
+                        </setting>
+
+                        <setting string="Payments Series"
+                                 help="Enter the Payments Series"
+                                 id="payments_series_setting">
+                            <field name="payments_series"/>
+                        </setting>
+                    </block>
+
+                </app>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="res_config_settings_action" model="ir.actions.act_window">
+            <field name="name">Configuration</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.config.settings</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+            <field name="context">{'module' : 'sap_connector'}</field>
+        </record>
+    <menuitem id="sap_management_menu_root"
+              name="SAP"
+              sequence="1"/>
+    <menuitem id="sap_management_menu_action"
+              name="Configuration"
+              parent="sap_connector.sap_management_menu_root"
+              sequence="6"/>
+    <menuitem id="sap_connector_settings_menu_action"
+              name="Settings"
+              parent="sap_connector.sap_management_menu_action"
+              action="res_config_settings_action"
+              sequence="7"/>
+
+</odoo>
